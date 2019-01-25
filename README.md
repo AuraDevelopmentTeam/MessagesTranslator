@@ -2,8 +2,9 @@
 
 [![Build Status](https://gitlab.project-creative.de/AuraDev/MessagesTranslator/badges/master/build.svg)](https://gitlab.project-creative.de/AuraDev/MessagesTranslator/pipelines)
 [![Coverage Report](https://gitlab.project-creative.de/AuraDev/MessagesTranslator/badges/master/coverage.svg)](https://gitlab.project-creative.de/AuraDev/MessagesTranslator/pipelines)
+[![License](https://img.shields.io/github/license/AuraDevelopmentTeam/MessagesTranslator.svg)](https://github.com/AuraDevelopmentTeam/MessagesTranslator/blob/master/LICENSE)
 
-Simple plugin to limit how many of a type of block a player can place
+A simple interface for translating messages in plugins
 
 ## Downloads
 
