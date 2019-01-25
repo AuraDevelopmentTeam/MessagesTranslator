@@ -17,12 +17,12 @@ public class MessagesTranslator {
   private final Config defaultLang;
   private final Config translation;
 
-  private static void copyDefaultLanguageFiles(File dir) {
-    FileUtils.copyResourcesRecursively(MessagesTranslator.class.getResource("/lang"), dir);
+  private static void copyDefaultLanguageFiles(File dir, Class<?> resourceClass) {
+    FileUtils.copyResourcesRecursively(resourceClass.getResource("/lang"), dir);
   }
 
-  public MessagesTranslator(File dir, String language) {
-    copyDefaultLanguageFiles(dir);
+  public MessagesTranslator(File dir, String language, Object plugin) {
+    copyDefaultLanguageFiles(dir, plugin.getClass());
 
     defaultLang = loadLanguageConfiguration(dir, DEFAULT_LANGUAGE).get();
     translation = loadLanguage(dir, language).withFallback(defaultLang).resolve();

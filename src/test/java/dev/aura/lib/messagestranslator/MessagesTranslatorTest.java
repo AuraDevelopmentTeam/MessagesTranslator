@@ -35,7 +35,7 @@ public class MessagesTranslatorTest {
 
   @BeforeClass
   public static void setUpClass() {
-    tempDir = new File(System.getProperty("java.io.tmpdir"), "bungeechat");
+    tempDir = new File(System.getProperty("java.io.tmpdir"), "messagestranslator");
   }
 
   @AfterClass
@@ -56,7 +56,7 @@ public class MessagesTranslatorTest {
 
   @Test
   public void fileCopyTest() {
-    new MessagesTranslator(tempDir, MessagesTranslator.DEFAULT_LANGUAGE);
+    new MessagesTranslator(tempDir, MessagesTranslator.DEFAULT_LANGUAGE, getClass());
 
     File en_US = new File(tempDir, "en_US.lang");
     File de_DE = new File(tempDir, "de_DE.lang");
@@ -68,8 +68,8 @@ public class MessagesTranslatorTest {
   @Test
   public void missingLanguageTest() {
     MessagesTranslator expected =
-        new MessagesTranslator(tempDir, MessagesTranslator.DEFAULT_LANGUAGE);
-    MessagesTranslator testee = new MessagesTranslator(tempDir, "unknown");
+        new MessagesTranslator(tempDir, MessagesTranslator.DEFAULT_LANGUAGE, getClass());
+    MessagesTranslator testee = new MessagesTranslator(tempDir, "unknown", getClass());
 
     for (Message message : TestMessages.values()) {
       assertEquals(
