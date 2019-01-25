@@ -1,3 +1,10 @@
+Version 1.1.0
+-------------
+
+\* Changed license to MIT.  
+\* Using the plugin object to get the `lang` dir.  
+
+
 Version 1.0.0
 -------------
 
