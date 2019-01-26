@@ -1,3 +1,9 @@
+Version 1.1.1
+-------------
+
+\* Prevented infinite loops while loading inherited languages.  
+
+
 Version 1.1.0
 -------------
 
