@@ -6,9 +6,12 @@ import com.typesafe.config.ConfigParseOptions;
 import com.typesafe.config.ConfigSyntax;
 import dev.aura.lib.messagestranslator.util.FileUtils;
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.regex.Pattern;
 
 // TODO: Javadoc!
 public class MessagesTranslator {
@@ -18,6 +21,7 @@ public class MessagesTranslator {
   protected static final String INHERIT = "inherit";
 
   protected SortedSet<String> loadedLanguages = new TreeSet<>();
+  protected Map<String, Pattern> replacementCache = new HashMap<>();
 
   protected final Config defaultLang;
   protected final Config translation;
@@ -34,14 +38,31 @@ public class MessagesTranslator {
   }
 
   public Optional<String> translate(Message message) {
+    return translate(message, null);
+  }
+
+  public Optional<String> translate(Message message, Map<String, String> replacements) {
     String path = message.getStringPath();
 
-    if (translation.hasPath(path)) return Optional.of(translation.getString(path));
-    else return Optional.empty();
+    if (!translation.hasPath(path)) return Optional.empty();
+
+    String result = translation.getString(path);
+
+    if (replacements != null) {
+      for (Map.Entry<String, String> replacement : replacements.entrySet()) {
+        result = replacePlaceholder(result, replacement);
+      }
+    }
+
+    return Optional.of(result);
   }
 
   public String translateWithFallback(Message message) {
-    return translate(message).orElse(message.getStringPath());
+    return translateWithFallback(message, null);
+  }
+
+  public String translateWithFallback(Message message, Map<String, String> replacements) {
+    return translate(message, replacements).orElse(message.getStringPath());
   }
 
   protected Config loadLanguage(File dir, String language) {
@@ -73,5 +94,23 @@ public class MessagesTranslator {
     }
 
     return Optional.empty();
+  }
+
+  protected String replacePlaceholder(String orginal, Map.Entry<String, String> replacement) {
+    return replacePlaceholder(orginal, replacement.getKey(), replacement.getValue());
+  }
+
+  protected String replacePlaceholder(String orginal, String placeholder, String replacement) {
+    final Pattern pattern = getPattern(placeholder);
+
+    return pattern.matcher(orginal).replaceAll(replacement);
+  }
+
+  protected Pattern getPattern(String placeholder) {
+    return replacementCache.computeIfAbsent(placeholder, this::generatePattern);
+  }
+
+  protected Pattern generatePattern(String placeholder) {
+    return Pattern.compile('%' + Pattern.quote(placeholder) + '%', Pattern.CASE_INSENSITIVE);
   }
 }
