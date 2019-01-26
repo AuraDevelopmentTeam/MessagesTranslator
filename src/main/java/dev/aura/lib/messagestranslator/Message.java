@@ -1,5 +1,5 @@
 package dev.aura.lib.messagestranslator;
 
 public interface Message {
-  String getStringPath();
+  public String getStringPath();
 }

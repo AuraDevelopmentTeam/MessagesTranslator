@@ -15,14 +15,14 @@ public class MessagesTranslator {
   public static final String DEFAULT_LANGUAGE = "en_US";
   protected static final ConfigParseOptions PARSE_OPTIONS =
       ConfigParseOptions.defaults().setAllowMissing(false).setSyntax(ConfigSyntax.CONF);
-  private static final String INHERIT = "inherit";
+  protected static final String INHERIT = "inherit";
 
-  private SortedSet<String> loadedLanguages = new TreeSet<>();
+  protected SortedSet<String> loadedLanguages = new TreeSet<>();
 
-  private final Config defaultLang;
-  private final Config translation;
+  protected final Config defaultLang;
+  protected final Config translation;
 
-  private static void copyDefaultLanguageFiles(File dir, Class<?> resourceClass) {
+  protected static void copyDefaultLanguageFiles(File dir, Class<?> resourceClass) {
     FileUtils.copyResourcesRecursively(resourceClass.getResource("/lang"), dir);
   }
 
@@ -44,7 +44,7 @@ public class MessagesTranslator {
     return translate(message).orElse(message.getStringPath());
   }
 
-  private Config loadLanguage(File dir, String language) {
+  protected Config loadLanguage(File dir, String language) {
     Config langConfig = loadLanguageConfiguration(dir, language).orElse(defaultLang);
 
     if ((langConfig != defaultLang) && langConfig.hasPath(INHERIT)) {
@@ -56,7 +56,7 @@ public class MessagesTranslator {
     return langConfig;
   }
 
-  private Optional<Config> loadLanguageConfiguration(File dir, String language) {
+  protected Optional<Config> loadLanguageConfiguration(File dir, String language) {
     File langaugeFile = new File(dir, language + ".lang");
 
     try {
