@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+// TODO: More an better tests
 public class MessagesTranslatorTest {
   private static File tempDir;
 

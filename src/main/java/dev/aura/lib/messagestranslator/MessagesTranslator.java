@@ -7,12 +7,17 @@ import com.typesafe.config.ConfigSyntax;
 import dev.aura.lib.messagestranslator.util.FileUtils;
 import java.io.File;
 import java.util.Optional;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
+// TODO: Javadoc!
 public class MessagesTranslator {
   public static final String DEFAULT_LANGUAGE = "en_US";
   protected static final ConfigParseOptions PARSE_OPTIONS =
       ConfigParseOptions.defaults().setAllowMissing(false).setSyntax(ConfigSyntax.CONF);
   private static final String INHERIT = "inherit";
+
+  private SortedSet<String> loadedLanguages = new TreeSet<>();
 
   private final Config defaultLang;
   private final Config translation;
@@ -42,7 +47,7 @@ public class MessagesTranslator {
   private Config loadLanguage(File dir, String language) {
     Config langConfig = loadLanguageConfiguration(dir, language).orElse(defaultLang);
 
-    if (langConfig.hasPath(INHERIT)) {
+    if ((langConfig != defaultLang) && langConfig.hasPath(INHERIT)) {
       String inheritLang = langConfig.getString(INHERIT);
 
       langConfig = langConfig.withFallback(loadLanguage(dir, inheritLang));
@@ -55,8 +60,13 @@ public class MessagesTranslator {
     File langaugeFile = new File(dir, language + ".lang");
 
     try {
-      if (langaugeFile.exists())
-        return Optional.of(ConfigFactory.parseFile(langaugeFile, PARSE_OPTIONS));
+      if (!langaugeFile.exists() || loadedLanguages.contains(language)) {
+        return Optional.empty();
+      }
+
+      loadedLanguages.add(language);
+
+      return Optional.of(ConfigFactory.parseFile(langaugeFile, PARSE_OPTIONS));
     } catch (Exception e) {
       System.err.println("Could not load language: " + language);
       e.printStackTrace();
