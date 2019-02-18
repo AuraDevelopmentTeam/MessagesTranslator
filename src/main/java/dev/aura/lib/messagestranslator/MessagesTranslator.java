@@ -26,12 +26,12 @@ public class MessagesTranslator {
   protected final Config defaultLang;
   protected final Config translation;
 
-  protected static void copyDefaultLanguageFiles(File dir, Class<?> resourceClass) {
-    FileUtils.copyResourcesRecursively(resourceClass.getResource("/lang"), dir);
+  protected static void copyDefaultLanguageFiles(File dir, Class<?> resourceClass, String ID) {
+    FileUtils.copyResourcesRecursively(resourceClass.getResource("/assets/" + ID + "/lang"), dir);
   }
 
-  public MessagesTranslator(File dir, String language, Object plugin) {
-    copyDefaultLanguageFiles(dir, plugin.getClass());
+  public MessagesTranslator(File dir, String language, Object plugin, String ID) {
+    copyDefaultLanguageFiles(dir, plugin.getClass(), ID);
 
     defaultLang = loadLanguageConfiguration(dir, DEFAULT_LANGUAGE).get();
     translation = loadLanguage(dir, language).withFallback(defaultLang).resolve();

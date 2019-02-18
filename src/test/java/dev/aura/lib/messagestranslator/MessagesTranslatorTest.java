@@ -13,6 +13,8 @@ import org.junit.Test;
 
 // TODO: More an better tests
 public class MessagesTranslatorTest {
+  public static final String ID = "test";
+
   private static File tempDir;
 
   @SuppressFBWarnings(
@@ -57,7 +59,7 @@ public class MessagesTranslatorTest {
 
   @Test
   public void fileCopyTest() {
-    new MessagesTranslator(tempDir, MessagesTranslator.DEFAULT_LANGUAGE, getClass());
+    new MessagesTranslator(tempDir, MessagesTranslator.DEFAULT_LANGUAGE, getClass(), ID);
 
     File en_US = new File(tempDir, "en_US.lang");
     File de_DE = new File(tempDir, "de_DE.lang");
@@ -69,8 +71,8 @@ public class MessagesTranslatorTest {
   @Test
   public void missingLanguageTest() {
     MessagesTranslator expected =
-        new MessagesTranslator(tempDir, MessagesTranslator.DEFAULT_LANGUAGE, getClass());
-    MessagesTranslator testee = new MessagesTranslator(tempDir, "unknown", getClass());
+        new MessagesTranslator(tempDir, MessagesTranslator.DEFAULT_LANGUAGE, getClass(), ID);
+    MessagesTranslator testee = new MessagesTranslator(tempDir, "unknown", getClass(), ID);
 
     for (Message message : TestMessages.values()) {
       assertEquals(
