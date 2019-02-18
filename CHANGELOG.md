@@ -1,3 +1,9 @@
+Version 1.3.0
+-------------
+
+\* Changed language file dir from `/lang` to `/assets/<ID>/lang` (Fixes [#1](https://github.com/AuraDevelopmentTeam/MessagesTranslator/issues/1)).  
+
+
 Version 1.2.0
 -------------
 
