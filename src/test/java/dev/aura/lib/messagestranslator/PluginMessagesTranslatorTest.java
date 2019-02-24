@@ -12,7 +12,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 // TODO: More and better tests
-public class MessagesTranslatorTest {
+public class PluginMessagesTranslatorTest {
   public static final String ID = "test";
 
   private static File tempDir;
@@ -59,7 +59,8 @@ public class MessagesTranslatorTest {
 
   @Test
   public void fileCopyTest() {
-    new MessagesTranslator(tempDir, MessagesTranslator.DEFAULT_LANGUAGE, getClass(), ID);
+    new PluginMessagesTranslator(
+        tempDir, PluginMessagesTranslator.DEFAULT_LANGUAGE, getClass(), ID);
 
     File en_US = new File(tempDir, "en_US.lang");
     File de_DE = new File(tempDir, "de_DE.lang");
@@ -70,9 +71,11 @@ public class MessagesTranslatorTest {
 
   @Test
   public void missingLanguageTest() {
-    MessagesTranslator expected =
-        new MessagesTranslator(tempDir, MessagesTranslator.DEFAULT_LANGUAGE, getClass(), ID);
-    MessagesTranslator testee = new MessagesTranslator(tempDir, "unknown", getClass(), ID);
+    PluginMessagesTranslator expected =
+        new PluginMessagesTranslator(
+            tempDir, PluginMessagesTranslator.DEFAULT_LANGUAGE, getClass(), ID);
+    PluginMessagesTranslator testee =
+        new PluginMessagesTranslator(tempDir, "unknown", getClass(), ID);
 
     for (Message message : TestMessages.values()) {
       assertEquals(
