@@ -1,3 +1,9 @@
+Version 1.4.1
+-------------
+
+\* Fixed deploying to maven of MessagesTranslator-UnitTestHelper.  
+
+
 Version 1.4.0
 -------------
 
