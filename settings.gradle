@@ -2,3 +2,4 @@ include "GradleCommon"
 include "UnitTestHelper"
 
 rootProject.name = "MessagesTranslator"
+project(":UnitTestHelper").name = "MessagesTranslator-UnitTestHelper"
