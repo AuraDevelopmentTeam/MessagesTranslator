@@ -1,3 +1,16 @@
+Version 1.4.0
+-------------
+
+\+ Added subproject MessagesTranslator-UnitTestHelper to still allow translations in unit tests without copying files.  
+\* Completely restructured internal structure:
+  - Turned `MessagesTranslator` into an interface.
+  - Added `BaseMessagesTranslator` with built in replacement functionalities.
+  - Added `HoconMessagesTranslator` to allow HOCON objects to be translation bases.
+  - Renamed `MessagesTranslator` to `PluginMessagesTranslator`.
+  - Added `UnitTestMessagesTranslator` in subproject MessagesTranslator-UnitTestHelper.
+  - Project is now way more extensible.
+
+
 Version 1.3.0
 -------------
 
