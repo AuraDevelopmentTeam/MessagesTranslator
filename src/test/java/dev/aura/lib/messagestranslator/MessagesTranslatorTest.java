@@ -11,7 +11,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-// TODO: More an better tests
+// TODO: More and better tests
 public class MessagesTranslatorTest {
   public static final String ID = "test";
 
