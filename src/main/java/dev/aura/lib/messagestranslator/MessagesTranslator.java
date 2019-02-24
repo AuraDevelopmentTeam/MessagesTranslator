@@ -3,6 +3,7 @@ package dev.aura.lib.messagestranslator;
 import java.util.Map;
 import java.util.Optional;
 
+// TODO: Javadoc!
 public interface MessagesTranslator {
   public static final String DEFAULT_LANGUAGE = "en_US";
 
