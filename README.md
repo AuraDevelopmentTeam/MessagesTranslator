@@ -1,5 +1,6 @@
 # [MessagesTranslator](https://github.com/AuraDevelopmentTeam/MessagesTranslator)
 
+[![Current Version](https://badge.fury.io/gh/AuraDevelopmentTeam%2FMessagesTranslator.svg)](https://maven.aura-dev.team/service/rest/repository/browse/auradev-releases/dev/aura/lib/messagestranslator/MessagesTranslator/)
 [![Build Status](https://gitlab.aura-dev.team/AuraDev/MessagesTranslator/badges/master/build.svg)](https://gitlab.aura-dev.team/AuraDev/MessagesTranslator/pipelines)
 [![Coverage Report](https://gitlab.aura-dev.team/AuraDev/MessagesTranslator/badges/master/coverage.svg)](https://gitlab.aura-dev.team/AuraDev/MessagesTranslator/pipelines)
 [![License](https://img.shields.io/github/license/AuraDevelopmentTeam/MessagesTranslator.svg)](https://github.com/AuraDevelopmentTeam/MessagesTranslator/blob/master/LICENSE)

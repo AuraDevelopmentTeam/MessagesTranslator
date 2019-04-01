@@ -1,5 +1,5 @@
 Version 1.4.2
-------------
+-------------
 
 \* Fixed URLs in docs.  
 
