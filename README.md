@@ -3,6 +3,7 @@
 [![Current Version](https://badge.fury.io/gh/AuraDevelopmentTeam%2FMessagesTranslator.svg)](https://maven.aura-dev.team/service/rest/repository/browse/auradev-releases/dev/aura/lib/messagestranslator/MessagesTranslator/)
 [![Build Status](https://gitlab.aura-dev.team/AuraDev/MessagesTranslator/badges/master/build.svg)](https://gitlab.aura-dev.team/AuraDev/MessagesTranslator/pipelines)
 [![Coverage Report](https://gitlab.aura-dev.team/AuraDev/MessagesTranslator/badges/master/coverage.svg)](https://gitlab.aura-dev.team/AuraDev/MessagesTranslator/pipelines)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f7a30b54fa19453a98c71a9fb7cda159)](https://www.codacy.com/app/AuraDevelopmentTeam/MessagesTranslator?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AuraDevelopmentTeam/MessagesTranslator&amp;utm_campaign=Badge_Grade)
 [![License](https://img.shields.io/github/license/AuraDevelopmentTeam/MessagesTranslator.svg)](https://github.com/AuraDevelopmentTeam/MessagesTranslator/blob/master/LICENSE)
 
 A simple interface for translating messages in plugins
