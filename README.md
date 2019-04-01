@@ -1,7 +1,7 @@
 # [MessagesTranslator](https://github.com/AuraDevelopmentTeam/MessagesTranslator)
 
-[![Build Status](https://gitlab.project-creative.de/AuraDev/MessagesTranslator/badges/master/build.svg)](https://gitlab.project-creative.de/AuraDev/MessagesTranslator/pipelines)
-[![Coverage Report](https://gitlab.project-creative.de/AuraDev/MessagesTranslator/badges/master/coverage.svg)](https://gitlab.project-creative.de/AuraDev/MessagesTranslator/pipelines)
+[![Build Status](https://gitlab.aura-dev.team/AuraDev/MessagesTranslator/badges/master/build.svg)](https://gitlab.aura-dev.team/AuraDev/MessagesTranslator/pipelines)
+[![Coverage Report](https://gitlab.aura-dev.team/AuraDev/MessagesTranslator/badges/master/coverage.svg)](https://gitlab.aura-dev.team/AuraDev/MessagesTranslator/pipelines)
 [![License](https://img.shields.io/github/license/AuraDevelopmentTeam/MessagesTranslator.svg)](https://github.com/AuraDevelopmentTeam/MessagesTranslator/blob/master/LICENSE)
 
 A simple interface for translating messages in plugins
@@ -11,8 +11,8 @@ A simple interface for translating messages in plugins
 You can download all builds from either:
 
 - Maven:
-  - Releases: https://maven.project-creative.de/repository/auradev-releases/
-  - Snapshots: https://maven.project-creative.de/repository/auradev-snapshots/
+  - Releases: https://maven.aura-dev.team/repository/auradev-releases/
+  - Snapshots: https://maven.aura-dev.team/repository/auradev-snapshots/
 
 ## [Issue Reporting](https://github.com/AuraDevelopmentTeam/MessagesTranslator/issues)
 
@@ -46,8 +46,8 @@ maven repository. (Replace `{version}` with the appropriate version!)
     <repositories>
         <repository>
             <id>AuraDevelopmentTeam/id>
-            <url>https://maven.project-creative.de/repository/auradev-releases/</url>
-            <!--<url>https://maven.project-creative.de/repository/auradev-snapshots/</url>-->
+            <url>https://maven.aura-dev.team/repository/auradev-releases/</url>
+            <!--<url>https://maven.aura-dev.team/repository/auradev-snapshots/</url>-->
         </repository>
     </repositories>
 
@@ -65,8 +65,8 @@ maven repository. (Replace `{version}` with the appropriate version!)
     repositories {
         maven {
             name "AuraDevelopmentTeam"
-            url "https://maven.project-creative.de/repository/auradev-releases/"
-            // url "https://maven.project-creative.de/repository/auradev-snapshots/"
+            url "https://maven.aura-dev.team/repository/auradev-releases/"
+            // url "https://maven.aura-dev.team/repository/auradev-snapshots/"
         }
     }
 
@@ -86,7 +86,7 @@ maven repository. (Replace `{version}` with the appropriate version!)
 Between each offical release there are several bleeding edge development builds, which you can also use. But be aware that they might contain unfinished
 features and therefore won't work properly.
 
-You can find the builds here: https://gitlab.project-creative.de/AuraDev/MessagesTranslator/pipelines
+You can find the builds here: https://gitlab.aura-dev.team/AuraDev/MessagesTranslator/pipelines
 
 On the right is a download symbol, click that a dropdown will open. Select "build". Then you'll download a zip file containing all atrifacts including the
 plugin jar.
