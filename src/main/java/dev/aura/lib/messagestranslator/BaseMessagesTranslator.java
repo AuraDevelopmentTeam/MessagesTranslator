@@ -20,11 +20,17 @@ public abstract class BaseMessagesTranslator implements MessagesTranslator {
   public Optional<String> translate(Message message, Map<String, String> replacements) {
     final Optional<String> rawTranslation = translateRaw(message);
 
-    if (replacements == null) return rawTranslation;
+    if ((replacements == null) || replacements.isEmpty()) return rawTranslation;
     if (!rawTranslation.isPresent()) return Optional.empty();
 
-    CharSequence[] splits = SPLITTER.split(rawTranslation.get());
+    String[] stringSplits = SPLITTER.split(rawTranslation.get());
+    CharSequence[] splits = new CharSequence[stringSplits.length];
     int length = 0;
+
+    // Array needs to be copied so that it's actually a {@link CharSequence} and not just a {@link
+    // String} array. This prevents having to call {@link StringBuilder#toString} in the loop, which
+    // is fairly expensive.
+    System.arraycopy(stringSplits, 0, splits, 0, stringSplits.length);
 
     for (int i = 0; i < splits.length; ++i) {
       if ((i & 0x01) == 1) {

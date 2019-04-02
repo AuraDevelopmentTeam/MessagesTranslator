@@ -72,6 +72,7 @@ public class PluginMessagesTranslatorTest {
   }
 
   @Test
+  @SuppressWarnings("serial")
   public void missingLanguageTest() {
     PluginMessagesTranslator expected =
         new PluginMessagesTranslator(
@@ -79,11 +80,35 @@ public class PluginMessagesTranslatorTest {
     PluginMessagesTranslator testee =
         new PluginMessagesTranslator(tempDir, "unknown", getClass(), ID);
 
+    final Map<String, String> dummySet =
+        new HashMap<String, String>() {
+          {
+            put("dummy", "");
+          }
+        };
+    final Map<String, String> set1 =
+        new HashMap<String, String>() {
+          {
+            put("foo", "foo");
+            put("bar", "bar");
+            put("foobar", "foobar");
+            put("placeholder", "placeholder");
+          }
+        };
+
     for (Message message : TestMessages.values()) {
       assertEquals(
           "Expected default language and missing language to be the same",
           expected.translateWithFallback(message),
           testee.translateWithFallback(message));
+      assertEquals(
+          "Expected default language and missing language to be the same",
+          expected.translateWithFallback(message, dummySet),
+          testee.translateWithFallback(message, dummySet));
+      assertEquals(
+          "Expected default language and missing language to be the same",
+          expected.translateWithFallback(message, set1),
+          testee.translateWithFallback(message, set1));
     }
   }
 
@@ -95,7 +120,14 @@ public class PluginMessagesTranslatorTest {
             tempDir, PluginMessagesTranslator.DEFAULT_LANGUAGE, getClass(), ID);
     PluginMessagesTranslator de_DE = new PluginMessagesTranslator(tempDir, "de_DE", getClass(), ID);
 
-    Map<String, String> set1 =
+    final Map<String, String> emptySet = new HashMap<>();
+    final Map<String, String> dummySet =
+        new HashMap<String, String>() {
+          {
+            put("dummy", "");
+          }
+        };
+    final Map<String, String> set1 =
         new HashMap<String, String>() {
           {
             put("foo", "foo");
@@ -104,7 +136,7 @@ public class PluginMessagesTranslatorTest {
             put("placeholder", "placeholder");
           }
         };
-    Map<String, String> set2 =
+    final Map<String, String> set2 =
         new HashMap<String, String>() {
           {
             put("foo", "banana");
@@ -118,12 +150,22 @@ public class PluginMessagesTranslatorTest {
         "We test if %foo% + %bar% = %foobar% (%foo%%bar%)",
         en_US.translateWithFallback(TestMessages.PLACEHOLDER1));
     assertEquals(
+        "We test if %foo% + %bar% = %foobar% (%foo%%bar%)",
+        en_US.translateWithFallback(TestMessages.PLACEHOLDER1, emptySet));
+    assertEquals(
+        "We test if %foo% + %bar% = %foobar% (%foo%%bar%)",
+        en_US.translateWithFallback(TestMessages.PLACEHOLDER1, dummySet));
+    assertEquals(
         "We test if foo + bar = foobar (foobar)",
         en_US.translateWithFallback(TestMessages.PLACEHOLDER1, set1));
     assertEquals(
         "We test if banana + banana = banana (bananabanana)",
         en_US.translateWithFallback(TestMessages.PLACEHOLDER1, set2));
     assertEquals("Test %placeholder%", en_US.translateWithFallback(TestMessages.PLACEHOLDER2));
+    assertEquals(
+        "Test %placeholder%", en_US.translateWithFallback(TestMessages.PLACEHOLDER2, emptySet));
+    assertEquals(
+        "Test %placeholder%", en_US.translateWithFallback(TestMessages.PLACEHOLDER2, dummySet));
     assertEquals("Test placeholder", en_US.translateWithFallback(TestMessages.PLACEHOLDER2, set1));
     assertEquals("Test banana", en_US.translateWithFallback(TestMessages.PLACEHOLDER2, set2));
 
@@ -131,12 +173,22 @@ public class PluginMessagesTranslatorTest {
         "Wir testen, ob %foo% + %bar% = %foobar% (%foo%%bar%)",
         de_DE.translateWithFallback(TestMessages.PLACEHOLDER1));
     assertEquals(
+        "Wir testen, ob %foo% + %bar% = %foobar% (%foo%%bar%)",
+        de_DE.translateWithFallback(TestMessages.PLACEHOLDER1, emptySet));
+    assertEquals(
+        "Wir testen, ob %foo% + %bar% = %foobar% (%foo%%bar%)",
+        de_DE.translateWithFallback(TestMessages.PLACEHOLDER1, dummySet));
+    assertEquals(
         "Wir testen, ob foo + bar = foobar (foobar)",
         de_DE.translateWithFallback(TestMessages.PLACEHOLDER1, set1));
     assertEquals(
         "Wir testen, ob banana + banana = banana (bananabanana)",
         de_DE.translateWithFallback(TestMessages.PLACEHOLDER1, set2));
     assertEquals("Test %placeholder%", de_DE.translateWithFallback(TestMessages.PLACEHOLDER2));
+    assertEquals(
+        "Test %placeholder%", de_DE.translateWithFallback(TestMessages.PLACEHOLDER2, emptySet));
+    assertEquals(
+        "Test %placeholder%", de_DE.translateWithFallback(TestMessages.PLACEHOLDER2, dummySet));
     assertEquals("Test placeholder", de_DE.translateWithFallback(TestMessages.PLACEHOLDER2, set1));
     assertEquals("Test banana", de_DE.translateWithFallback(TestMessages.PLACEHOLDER2, set2));
   }
