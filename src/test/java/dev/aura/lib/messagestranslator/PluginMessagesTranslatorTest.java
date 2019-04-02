@@ -5,6 +5,8 @@ import static org.junit.Assert.assertTrue;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -83,5 +85,51 @@ public class PluginMessagesTranslatorTest {
           expected.translateWithFallback(message),
           testee.translateWithFallback(message));
     }
+  }
+
+  @Test
+  @SuppressWarnings("serial")
+  public void placeholderTest() {
+    PluginMessagesTranslator en_US =
+        new PluginMessagesTranslator(
+            tempDir, PluginMessagesTranslator.DEFAULT_LANGUAGE, getClass(), ID);
+    PluginMessagesTranslator de_DE = new PluginMessagesTranslator(tempDir, "de_DE", getClass(), ID);
+
+    Map<String, String> set1 =
+        new HashMap<String, String>() {
+          {
+            put("foo", "foo");
+            put("bar", "bar");
+            put("foobar", "foobar");
+            put("placeholder", "placeholder");
+          }
+        };
+    Map<String, String> set2 =
+        new HashMap<String, String>() {
+          {
+            put("foo", "banana");
+            put("bar", "banana");
+            put("foobar", "banana");
+            put("placeholder", "banana");
+          }
+        };
+
+    assertEquals(
+        "We test if foo + bar = foobar",
+        en_US.translateWithFallback(TestMessages.PLACEHOLDER1, set1));
+    assertEquals(
+        "We test if banana + banana = banana",
+        en_US.translateWithFallback(TestMessages.PLACEHOLDER1, set2));
+    assertEquals("Test placeholder", en_US.translateWithFallback(TestMessages.PLACEHOLDER2, set1));
+    assertEquals("Test banana", en_US.translateWithFallback(TestMessages.PLACEHOLDER2, set2));
+
+    assertEquals(
+        "Wir testen, ob foo + bar = foobar",
+        de_DE.translateWithFallback(TestMessages.PLACEHOLDER1, set1));
+    assertEquals(
+        "Wir testen, ob banana + banana = banana",
+        de_DE.translateWithFallback(TestMessages.PLACEHOLDER1, set2));
+    assertEquals("Test placeholder", de_DE.translateWithFallback(TestMessages.PLACEHOLDER2, set1));
+    assertEquals("Test banana", de_DE.translateWithFallback(TestMessages.PLACEHOLDER2, set2));
   }
 }
