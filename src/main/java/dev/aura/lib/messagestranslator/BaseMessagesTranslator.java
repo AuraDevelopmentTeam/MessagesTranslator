@@ -24,6 +24,11 @@ public abstract class BaseMessagesTranslator implements MessagesTranslator {
     if (!rawTranslation.isPresent()) return Optional.empty();
 
     String[] stringSplits = SPLITTER.split(rawTranslation.get());
+
+    // If the array has the size 1, then there's nothing to replace and we can just return the raw
+    // translation.
+    if (stringSplits.length == 1) return rawTranslation;
+
     CharSequence[] splits = new CharSequence[stringSplits.length];
     int length = 0;
 
