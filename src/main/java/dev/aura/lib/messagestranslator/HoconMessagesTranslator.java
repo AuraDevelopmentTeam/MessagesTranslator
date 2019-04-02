@@ -4,7 +4,6 @@ import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import com.typesafe.config.ConfigParseOptions;
 import com.typesafe.config.ConfigSyntax;
-import java.util.Map;
 import java.util.Optional;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -30,19 +29,9 @@ public class HoconMessagesTranslator extends BaseMessagesTranslator {
   private Config translation = ConfigFactory.empty();
 
   @Override
-  public Optional<String> translate(Message message, Map<String, String> replacements) {
-    String path = message.getStringPath();
+  protected Optional<String> translateRaw(Message message) {
+    final String path = message.getStringPath();
 
-    if (!translation.hasPath(path)) return Optional.empty();
-
-    String result = translation.getString(path);
-
-    if (replacements != null) {
-      for (Map.Entry<String, String> replacement : replacements.entrySet()) {
-        result = replacePlaceholder(result, replacement);
-      }
-    }
-
-    return Optional.of(result);
+    return translation.hasPath(path) ? Optional.of(translation.getString(path)) : Optional.empty();
   }
 }
