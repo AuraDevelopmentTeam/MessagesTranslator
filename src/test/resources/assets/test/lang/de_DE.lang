@@ -13,4 +13,4 @@ test2: "Allerdings ist das test2"
 # Placeholder Test Messages
 ####################################################################################################
 
-placeholder1: "Wir testen, ob %foo% + %bar% = %foobar%"
+placeholder1: "Wir testen, ob %foo% + %bar% = %foobar% (%foo%%bar%)"

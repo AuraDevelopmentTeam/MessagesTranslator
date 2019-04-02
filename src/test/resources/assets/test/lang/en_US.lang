@@ -14,5 +14,5 @@ foo: "bar"
 # Placeholder Test Messages
 ####################################################################################################
 
-placeholder1: "We test if %foo% + %bar% = %foobar%"
+placeholder1: "We test if %foo% + %bar% = %foobar% (%foo%%bar%)"
 placeholder2: "Test %placeholder%"

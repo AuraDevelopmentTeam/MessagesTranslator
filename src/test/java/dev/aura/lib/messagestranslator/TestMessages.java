@@ -11,7 +11,9 @@ public enum TestMessages implements Message {
   FOO("foo"),
   // Placeholder
   PLACEHOLDER1("placeholder1"),
-  PLACEHOLDER2("placeholder2");
+  PLACEHOLDER2("placeholder2"),
+  // Nonexisting
+  NONEXISTING("nonexisting");
 
   @Getter private final String stringPath;
 }

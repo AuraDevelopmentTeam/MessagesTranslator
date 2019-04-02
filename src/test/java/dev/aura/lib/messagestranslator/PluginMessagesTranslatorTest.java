@@ -115,20 +115,28 @@ public class PluginMessagesTranslatorTest {
         };
 
     assertEquals(
-        "We test if foo + bar = foobar",
+        "We test if %foo% + %bar% = %foobar% (%foo%%bar%)",
+        en_US.translateWithFallback(TestMessages.PLACEHOLDER1));
+    assertEquals(
+        "We test if foo + bar = foobar (foobar)",
         en_US.translateWithFallback(TestMessages.PLACEHOLDER1, set1));
     assertEquals(
-        "We test if banana + banana = banana",
+        "We test if banana + banana = banana (bananabanana)",
         en_US.translateWithFallback(TestMessages.PLACEHOLDER1, set2));
+    assertEquals("Test %placeholder%", en_US.translateWithFallback(TestMessages.PLACEHOLDER2));
     assertEquals("Test placeholder", en_US.translateWithFallback(TestMessages.PLACEHOLDER2, set1));
     assertEquals("Test banana", en_US.translateWithFallback(TestMessages.PLACEHOLDER2, set2));
 
     assertEquals(
-        "Wir testen, ob foo + bar = foobar",
+        "Wir testen, ob %foo% + %bar% = %foobar% (%foo%%bar%)",
+        de_DE.translateWithFallback(TestMessages.PLACEHOLDER1));
+    assertEquals(
+        "Wir testen, ob foo + bar = foobar (foobar)",
         de_DE.translateWithFallback(TestMessages.PLACEHOLDER1, set1));
     assertEquals(
-        "Wir testen, ob banana + banana = banana",
+        "Wir testen, ob banana + banana = banana (bananabanana)",
         de_DE.translateWithFallback(TestMessages.PLACEHOLDER1, set2));
+    assertEquals("Test %placeholder%", de_DE.translateWithFallback(TestMessages.PLACEHOLDER2));
     assertEquals("Test placeholder", de_DE.translateWithFallback(TestMessages.PLACEHOLDER2, set1));
     assertEquals("Test banana", de_DE.translateWithFallback(TestMessages.PLACEHOLDER2, set2));
   }
