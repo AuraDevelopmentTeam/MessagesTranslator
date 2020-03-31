@@ -5,5 +5,5 @@ repositories {
 }
 
 dependencies {
-    compile project(":")
+    implementation project(":")
 }

@@ -5,5 +5,5 @@ repositories {
 }
 
 dependencies {
-    compile "com.typesafe:config:${hocon_version}"
+    api "com.typesafe:config:${hocon_version}"
 }
