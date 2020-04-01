@@ -46,6 +46,10 @@ public class FileUtils {
   @Generated
   public static boolean copyFilesRecusively(
       final File toCopy, final File destDir, boolean skipFirstDir) {
+    if (!destDir.exists()) {
+      assert destDir.mkdirs();
+    }
+
     assert destDir.isDirectory();
 
     if (!toCopy.isDirectory())

@@ -3,8 +3,13 @@ package dev.aura.lib.messagestranslator;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.After;
@@ -14,33 +19,46 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 // TODO: More and better tests
+// TODO: Add override file tests
 public class PluginMessagesTranslatorTest {
   public static final String ID = "test";
 
   private static File tempDir;
+  private static File tempOriginalsDir;
 
-  @SuppressFBWarnings(
-    value = "RV_RETURN_VALUE_IGNORED_BAD_PRACTICE",
-    justification =
-        "If deleting fails there is no point in doing anything. Files just get delete to prevent buildup on disk"
-  )
   private static void cleanTempDir() {
-    if (tempDir.exists()) {
-      final File[] files = tempDir.listFiles();
+    if (!tempDir.exists()) return;
 
-      if (files != null) {
-        for (File f : files) {
-          f.delete();
-        }
-      }
+    try {
+      // Delete recursively
+      Files.walkFileTree(
+          tempDir.toPath(),
+          new SimpleFileVisitor<Path>() {
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
+                throws IOException {
+              Files.delete(file);
+              return FileVisitResult.CONTINUE;
+            }
 
-      tempDir.delete();
+            @Override
+            public FileVisitResult postVisitDirectory(Path dir, IOException exc)
+                throws IOException {
+              Files.delete(dir);
+              return FileVisitResult.CONTINUE;
+            }
+          });
+
+      if (tempDir.exists() && !tempDir.delete()) throw new IOException("Can't delete " + tempDir);
+    } catch (IOException e) {
+      throw new RuntimeException("Couldn't delete tempdir", e);
     }
   }
 
   @BeforeClass
   public static void setUpClass() {
     tempDir = new File(System.getProperty("java.io.tmpdir"), "messagestranslator");
+    tempOriginalsDir = new File(tempDir, PluginMessagesTranslator.ORIGINALS_DIR_NAME);
   }
 
   @AfterClass
@@ -61,11 +79,12 @@ public class PluginMessagesTranslatorTest {
 
   @Test
   public void fileCopyTest() {
+    // Create the instance to have the files copied
     new PluginMessagesTranslator(
         tempDir, PluginMessagesTranslator.DEFAULT_LANGUAGE, getClass(), ID);
 
-    File en_US = new File(tempDir, "en_US.lang");
-    File de_DE = new File(tempDir, "de_DE.lang");
+    File en_US = new File(tempOriginalsDir, "en_US.lang");
+    File de_DE = new File(tempOriginalsDir, "de_DE.lang");
 
     assertTrue("Expected en_US.lang to exist", en_US.exists());
     assertTrue("Expected de_DE.lang to exist", de_DE.exists());

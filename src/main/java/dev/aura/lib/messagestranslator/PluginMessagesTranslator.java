@@ -11,13 +11,16 @@ import java.util.TreeSet;
 // TODO: Javadoc!
 public class PluginMessagesTranslator extends HoconMessagesTranslator {
   protected static final String INHERIT = "inherit";
+  protected static final String ORIGINALS_DIR_NAME = "builtin";
 
   protected SortedSet<String> loadedLanguages = new TreeSet<>();
 
   protected final Config defaultLang;
 
   protected static void copyDefaultLanguageFiles(File dir, Class<?> resourceClass, String ID) {
-    FileUtils.copyResourcesRecursively(resourceClass.getResource("/assets/" + ID + "/lang"), dir);
+    // TODO: Consider adding code to migrate the old structure.
+    FileUtils.copyResourcesRecursively(
+        resourceClass.getResource("/assets/" + ID + "/lang"), new File(dir, ORIGINALS_DIR_NAME));
   }
 
   public PluginMessagesTranslator(File dir, String language, Object plugin, String ID) {
@@ -40,16 +43,40 @@ public class PluginMessagesTranslator extends HoconMessagesTranslator {
   }
 
   protected Optional<Config> loadLanguageConfiguration(File dir, String language) {
-    File langaugeFile = new File(dir, language + ".lang");
+    final String languageFileName = language + ".lang";
+    final File originalFilesDir = new File(dir, ORIGINALS_DIR_NAME);
+
+    final File langaugeFileOverride = new File(dir, languageFileName);
+    final File langaugeFile = new File(originalFilesDir, languageFileName);
+
+    final boolean langaugeFileOverrideExists = langaugeFileOverride.exists();
+    final boolean langaugeFileExists = langaugeFile.exists();
 
     try {
-      if (!langaugeFile.exists() || loadedLanguages.contains(language)) {
+      if (!(langaugeFileOverrideExists || langaugeFileExists)
+          || loadedLanguages.contains(language)) {
         return Optional.empty();
       }
 
       loadedLanguages.add(language);
 
-      return Optional.of(ConfigFactory.parseFile(langaugeFile, DEFAULT_PARSE_OPTIONS));
+      // The code below boils down to:
+      // - If the override file exists and the builtin one doesn't -> use the override
+      // - If the override file doesn't exist and the builtin one does -> use the builtin
+      // - If the override file exists and the builtin one does -> use the override and fall back to
+      // the builtin
+      Config parsedLanguageOverride =
+          langaugeFileOverrideExists
+              ? ConfigFactory.parseFile(langaugeFileOverride, DEFAULT_PARSE_OPTIONS)
+              : null;
+      Config parsedLanguage =
+          langaugeFileExists ? ConfigFactory.parseFile(langaugeFile, DEFAULT_PARSE_OPTIONS) : null;
+
+      if (langaugeFileOverrideExists && langaugeFileExists) {
+        parsedLanguageOverride = parsedLanguageOverride.withFallback(parsedLanguage);
+      }
+
+      return Optional.of(langaugeFileOverrideExists ? parsedLanguageOverride : parsedLanguage);
     } catch (Exception e) {
       System.err.println("Could not load language: " + language);
       e.printStackTrace();
