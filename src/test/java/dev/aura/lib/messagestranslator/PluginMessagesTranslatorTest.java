@@ -51,7 +51,7 @@ public class PluginMessagesTranslatorTest {
 
       if (tempDir.exists() && !tempDir.delete()) throw new IOException("Can't delete " + tempDir);
     } catch (IOException e) {
-      throw new RuntimeException("Couldn't delete tempdir", e);
+      throw new IllegalStateException("Couldn't delete tempdir", e);
     }
   }
 
@@ -59,6 +59,9 @@ public class PluginMessagesTranslatorTest {
   public static void setUpClass() {
     tempDir = new File(System.getProperty("java.io.tmpdir"), "messagestranslator");
     tempOriginalsDir = new File(tempDir, PluginMessagesTranslator.ORIGINALS_DIR_NAME);
+
+    // Just making sure
+    cleanTempDir();
   }
 
   @AfterClass
@@ -83,9 +86,15 @@ public class PluginMessagesTranslatorTest {
     new PluginMessagesTranslator(
         tempDir, PluginMessagesTranslator.DEFAULT_LANGUAGE, getClass(), ID);
 
+    File README = new File(tempDir, "_README.md");
+    File warn1 = new File(tempOriginalsDir, "_DO_NOT_EDIT_THESE_FILES");
+    File warn2 = new File(tempOriginalsDir, "_SEE_README_IN_PARENT_DIR");
     File en_US = new File(tempOriginalsDir, "en_US.lang");
     File de_DE = new File(tempOriginalsDir, "de_DE.lang");
 
+    assertTrue("Expected _README.md to exist", README.exists());
+    assertTrue("Expected _DO_NOT_EDIT_THESE_FILES to exist", warn1.exists());
+    assertTrue("Expected _SEE_README_IN_PARENT_DIR to exist", warn2.exists());
     assertTrue("Expected en_US.lang to exist", en_US.exists());
     assertTrue("Expected de_DE.lang to exist", de_DE.exists());
   }

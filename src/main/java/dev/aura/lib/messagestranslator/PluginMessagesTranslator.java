@@ -10,6 +10,10 @@ import java.util.TreeSet;
 
 // TODO: Javadoc!
 public class PluginMessagesTranslator extends HoconMessagesTranslator {
+  protected static final String README_RESOURCE_PATH =
+      '/'
+          + PluginMessagesTranslator.class.getPackage().getName().replace('.', '/')
+          + "/builtin_readme";
   protected static final String INHERIT = "inherit";
   protected static final String ORIGINALS_DIR_NAME = "builtin";
 
@@ -18,6 +22,8 @@ public class PluginMessagesTranslator extends HoconMessagesTranslator {
   protected final Config defaultLang;
 
   protected static void copyDefaultLanguageFiles(File dir, Class<?> resourceClass, String ID) {
+    final File originalFilesDir = new File(dir, ORIGINALS_DIR_NAME);
+
     // No migration!
     // I thought long and hard about adding code to migrate the old folder structure to the new one.
     // But no matter what I do I end up with the issue that I can't differentiate the case between
@@ -26,7 +32,14 @@ public class PluginMessagesTranslator extends HoconMessagesTranslator {
     // essentially just get deleted (or overriden). We rather have outdated translations than
     // deleting user generated translations.
     FileUtils.copyResourcesRecursively(
-        resourceClass.getResource("/assets/" + ID + "/lang"), new File(dir, ORIGINALS_DIR_NAME));
+        resourceClass.getResource("/assets/" + ID + "/lang"), originalFilesDir);
+    // Copy README
+    FileUtils.copyResourcesRecursively(
+        PluginMessagesTranslator.class.getResource(README_RESOURCE_PATH + "/base"), dir);
+    // Copy warning files
+    FileUtils.copyResourcesRecursively(
+        PluginMessagesTranslator.class.getResource(README_RESOURCE_PATH + "/builtin"),
+        originalFilesDir);
   }
 
   public PluginMessagesTranslator(File dir, String language, Object plugin, String ID) {
