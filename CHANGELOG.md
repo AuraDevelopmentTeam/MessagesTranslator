@@ -1,3 +1,13 @@
+Version 1.5.0
+-------------
+
+\* Builtin original translations are now stored inside the `builtin` dir. The language files in the base dir are considered override files.  
+\* Languages are now loaded by this logic:  
+   - If the override file exists and the builtin one doesn't -> use the override
+   - If the override file doesn't exist and the builtin one does -> use the builtin
+   - If the override file exists and the builtin one does -> use the override and fall back to the builtin
+
+
 Version 1.4.2
 -------------
 
