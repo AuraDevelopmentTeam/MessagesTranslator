@@ -38,7 +38,7 @@ restart or reload (if the plugin offers a reload).
 
 ### Custom Translation Files
 
-You can add any translation file to the translations base folder you want and them whatever you want. The only requirement is that the file has the `.lang`
+You can add any translation file to the translations base folder you want and name them whatever you want. The only requirement is that the file has the `.lang`
 extension. So file names like `en_GB.lang`, `en.lang`, `klingon.lang`, `banana.lang` and `I AM RUNNING OUT OF IDEAS SO HERE IS A LONG FILE NAME.lang` are
 perfectly file. Just be sure to follow roughly the same format as the built in examples.  
 And to select a language, just use the file name without the `.lang` extension (So `klingon.lang` becomes `klingon` in the config).
@@ -65,5 +65,6 @@ And to select a language, just use the file name without the `.lang` extension (
 - The actual translations shipped by the plugin are typically made by volunteers. So if they are not up to date or missing, it would be awesome if you updated
   them or created them and sent them the plugin author. That's always awesome. And if the plugin author(s) are not happy about you updating or creating a
   translation, then you can yell at them, deal?
+- If you want syntax highlighting, use YAML or HOCON. (It's technically HOCON, but YAML works too if you're being strict with the format)
 - You can make cool ASCII art banners on this site: http://patorjk.com/software/taag/  
   My favorite style for language files is this one: http://patorjk.com/software/taag/#h=0&v=0&c=bash&f=Standard
