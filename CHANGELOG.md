@@ -1,3 +1,9 @@
+Version 1.5.1
+-------------
+
+\+ Added README files that help understand how the translation files work.  
+
+
 Version 1.5.0
 -------------
 
