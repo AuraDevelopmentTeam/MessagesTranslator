@@ -29,7 +29,7 @@ public class PluginMessagesTranslator extends HoconMessagesTranslator {
     // But no matter what I do I end up with the issue that I can't differentiate the case between
     // the originals dir not existing because of it being the old structure or not existing because
     // the user deleted the dir. In the latter case migrating would cause data loss as the old files
-    // essentially just get deleted (or overriden). We rather have outdated translations than
+    // essentially just get deleted (or overridden). We rather have outdated translations than
     // deleting user generated translations.
     FileUtils.copyResourcesRecursively(
         resourceClass.getResource("/assets/" + ID + "/lang"), originalFilesDir);
