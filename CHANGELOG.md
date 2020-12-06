@@ -1,3 +1,9 @@
+Version 1.5.2
+-------------
+
+\* Fix issue with creating initial folder.  
+
+
 Version 1.5.1
 -------------
 
@@ -36,7 +42,7 @@ Version 1.4.0
   - Added `HoconMessagesTranslator` to allow HOCON objects to be translation bases.
   - Renamed `MessagesTranslator` to `PluginMessagesTranslator`.
   - Added `UnitTestMessagesTranslator` in subproject MessagesTranslator-UnitTestHelper.
-  - Project is now way more extensible.
+  - Project now is way more extensible.
 
 
 Version 1.3.0
