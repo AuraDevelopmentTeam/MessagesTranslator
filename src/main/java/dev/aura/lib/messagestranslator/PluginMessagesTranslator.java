@@ -65,14 +65,14 @@ public class PluginMessagesTranslator extends HoconMessagesTranslator {
     final String languageFileName = language + ".lang";
     final File originalFilesDir = new File(dir, ORIGINALS_DIR_NAME);
 
-    final File langaugeFileOverride = new File(dir, languageFileName);
-    final File langaugeFile = new File(originalFilesDir, languageFileName);
+    final File languageFileOverride = new File(dir, languageFileName);
+    final File languageFile = new File(originalFilesDir, languageFileName);
 
-    final boolean langaugeFileOverrideExists = langaugeFileOverride.exists();
-    final boolean langaugeFileExists = langaugeFile.exists();
+    final boolean languageFileOverrideExists = languageFileOverride.exists();
+    final boolean languageFileExists = languageFile.exists();
 
     try {
-      if (!(langaugeFileOverrideExists || langaugeFileExists)
+      if (!(languageFileOverrideExists || languageFileExists)
           || loadedLanguages.contains(language)) {
         return Optional.empty();
       }
@@ -85,17 +85,17 @@ public class PluginMessagesTranslator extends HoconMessagesTranslator {
       // - If the override file exists and the builtin one does -> use the override and fall back to
       // the builtin
       Config parsedLanguageOverride =
-          langaugeFileOverrideExists
-              ? ConfigFactory.parseFile(langaugeFileOverride, DEFAULT_PARSE_OPTIONS)
+          languageFileOverrideExists
+              ? ConfigFactory.parseFile(languageFileOverride, DEFAULT_PARSE_OPTIONS)
               : null;
       Config parsedLanguage =
-          langaugeFileExists ? ConfigFactory.parseFile(langaugeFile, DEFAULT_PARSE_OPTIONS) : null;
+          languageFileExists ? ConfigFactory.parseFile(languageFile, DEFAULT_PARSE_OPTIONS) : null;
 
-      if (langaugeFileOverrideExists && langaugeFileExists) {
+      if (languageFileOverrideExists && languageFileExists) {
         parsedLanguageOverride = parsedLanguageOverride.withFallback(parsedLanguage);
       }
 
-      return Optional.of(langaugeFileOverrideExists ? parsedLanguageOverride : parsedLanguage);
+      return Optional.of(languageFileOverrideExists ? parsedLanguageOverride : parsedLanguage);
     } catch (Exception e) {
       System.err.println("Could not load language: " + language);
       e.printStackTrace();
